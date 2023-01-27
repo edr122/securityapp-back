@@ -2,6 +2,8 @@ package com.example.segurityapp.service;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.segurityapp.domain.Entrant;
 import com.example.segurityapp.repository.EntrantRepository;
@@ -18,6 +20,12 @@ public class EntrantServiceImpl implements EntrantService{
 	public Iterable<Entrant> findAll() {
 		// TODO Auto-generated method stub
 		return entrantRepository.findAll();
+	}
+	
+	@Override
+	public Page<Entrant> findAll(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return entrantRepository.findAll(pageable);
 	}
 	
 	@Override

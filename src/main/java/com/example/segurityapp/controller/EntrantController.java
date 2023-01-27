@@ -3,6 +3,7 @@ package com.example.segurityapp.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,12 +24,17 @@ public class EntrantController {
 	
 	@Autowired EntrantServiceImpl entrantService;
 	
-	@GetMapping("entrants/")
+	@GetMapping("entrants")
 	public Iterable<Entrant> getAllPTs(){
 		return entrantService.findAll();
 	}
 	
-	@PostMapping("entrants/")
+	@GetMapping("entrantspaged")
+	public Iterable<Entrant> getAllPTs(Pageable pageable){
+		return entrantService.findAll(pageable);
+	}
+	
+	@PostMapping("entrants")
 	public ResponseEntity<?> saveOrUpdateEntrant(@RequestBody Entrant entrant){
 		Entrant newE = entrantService.saveOrUpdateEntrant(entrant);
 		return new ResponseEntity<Entrant>(newE,HttpStatus.CREATED);

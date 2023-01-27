@@ -3,6 +3,8 @@ package com.example.segurityapp.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.example.segurityapp.domain.TypeEntrant;
 import com.example.segurityapp.repository.TypeEntrantRepository;
@@ -17,6 +19,12 @@ public class TypeEntrantServiceImpl  implements TypeEntrantService{
 	public Iterable<TypeEntrant> findAll() {
 		// TODO Auto-generated method stub
 		return typeEntrantRepository.findAll();
+	}
+	
+	@Override
+	public Page<TypeEntrant> findAll(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return typeEntrantRepository.findAll(pageable);
 	}
 	
 	@Override

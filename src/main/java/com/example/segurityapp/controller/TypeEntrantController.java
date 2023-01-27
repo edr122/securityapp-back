@@ -2,6 +2,7 @@ package com.example.segurityapp.controller;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,12 +22,17 @@ public class TypeEntrantController {
 	
 	@Autowired TypeEntrantServiceImpl typeEntrantService;
 	
-	@GetMapping("typeentrants/")
+	@GetMapping("typeentrants")
 	public Iterable<TypeEntrant> getAllPTs(){
 		return typeEntrantService.findAll();
 	}
 	
-	@PostMapping("typeentrants/")
+	@GetMapping("typeentrantspaged")
+	public Iterable<TypeEntrant> getAllPTs(Pageable pageable){
+		return typeEntrantService.findAll(pageable);
+	}
+	
+	@PostMapping("typeentrants")
 	public ResponseEntity<?> saveOrUpdateEntrant(@RequestBody TypeEntrant typeEntrant){
 		TypeEntrant newTE = typeEntrantService.saveOrUpdateEntrant(typeEntrant);
 		return new ResponseEntity<TypeEntrant>(newTE,HttpStatus.CREATED);
