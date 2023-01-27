@@ -15,24 +15,24 @@ import com.example.segurityapp.domain.TypeEntrant;
 import com.example.segurityapp.service.TypeEntrantServiceImpl;
 
 @RestController
-@RequestMapping("/api/segurityapp/typeentrants")
+@RequestMapping("/api/segurityapp/")
 @CrossOrigin
 public class TypeEntrantController {
 	
 	@Autowired TypeEntrantServiceImpl typeEntrantService;
 	
-	@GetMapping("/all")
+	@GetMapping("typeentrants/")
 	public Iterable<TypeEntrant> getAllPTs(){
 		return typeEntrantService.findAll();
 	}
 	
-	@PostMapping("/add")
+	@PostMapping("typeentrants/")
 	public ResponseEntity<?> saveOrUpdateEntrant(@RequestBody TypeEntrant typeEntrant){
 		TypeEntrant newTE = typeEntrantService.saveOrUpdateEntrant(typeEntrant);
 		return new ResponseEntity<TypeEntrant>(newTE,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/{te_id}")
+	@GetMapping("typeentrants/{te_id}")
 	public ResponseEntity<?> getEById(@PathVariable Integer te_id){
 		Optional<TypeEntrant> entrant = typeEntrantService.findById(te_id);
 		return new ResponseEntity<Optional<TypeEntrant>>(entrant, HttpStatus.OK);

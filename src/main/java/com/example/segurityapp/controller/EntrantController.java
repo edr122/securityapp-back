@@ -43,6 +43,6 @@ public class EntrantController {
 	@DeleteMapping("entrants/{e_id}")
 	public ResponseEntity<?> delete(@PathVariable Integer e_id){
 		entrantService.delete(e_id);
-		return new ResponseEntity<String>("Ingresante Eliminado",HttpStatus.OK);
+		return new ResponseEntity<String>("entrant removed",HttpStatus.OK);
 	}
 }
