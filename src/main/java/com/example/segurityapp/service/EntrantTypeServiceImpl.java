@@ -6,34 +6,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.example.segurityapp.domain.TypeEntrant;
-import com.example.segurityapp.repository.TypeEntrantRepository;
+import com.example.segurityapp.domain.EntrantType;
+import com.example.segurityapp.repository.EntrantTypeRepository;
 
 @Service
-public class TypeEntrantServiceImpl  implements TypeEntrantService{
+public class EntrantTypeServiceImpl  implements EntrantTypeService{
 	
 	@Autowired
-	private TypeEntrantRepository typeEntrantRepository;
+	private EntrantTypeRepository typeEntrantRepository;
 	
 	@Override
-	public Iterable<TypeEntrant> findAll() {
+	public Iterable<EntrantType> findAll() {
 		// TODO Auto-generated method stub
 		return typeEntrantRepository.findAll();
 	}
 	
 	@Override
-	public Page<TypeEntrant> findAll(Pageable pageable) {
+	public Page<EntrantType> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return typeEntrantRepository.findAll(pageable);
 	}
 	
 	@Override
-	public TypeEntrant saveOrUpdateEntrant(TypeEntrant typeEntrant) {
+	public EntrantType saveOrUpdateEntrant(EntrantType typeEntrant) {
 		return typeEntrantRepository.save(typeEntrant);
 	}
 	
 	@Override
-	public Optional<TypeEntrant> findById(Integer id) {
+	public Optional<EntrantType> findById(Integer id) {
 		// TODO Auto-generated method stub
 		return typeEntrantRepository.findById(id);
 	}

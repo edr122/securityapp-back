@@ -12,35 +12,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.segurityapp.domain.TypeEntrant;
-import com.example.segurityapp.service.TypeEntrantServiceImpl;
+import com.example.segurityapp.domain.EntrantType;
+import com.example.segurityapp.service.EntrantTypeServiceImpl;
 
 @RestController
 @RequestMapping("/api/segurityapp/")
 @CrossOrigin
-public class TypeEntrantController {
+public class EntrantTypeController {
 	
-	@Autowired TypeEntrantServiceImpl typeEntrantService;
+	@Autowired EntrantTypeServiceImpl typeEntrantService;
 	
-	@GetMapping("typeentrants")
-	public Iterable<TypeEntrant> getAllPTs(){
+	@GetMapping("entrantsType")
+	public Iterable<EntrantType> getAllPTs(){
 		return typeEntrantService.findAll();
 	}
 	
-	@GetMapping("typeentrantspaged")
-	public Iterable<TypeEntrant> getAllPTs(Pageable pageable){
+	@GetMapping("entrantsTypePaged")
+	public Iterable<EntrantType> getAllPTs(Pageable pageable){
 		return typeEntrantService.findAll(pageable);
 	}
 	
-	@PostMapping("typeentrants")
-	public ResponseEntity<?> saveOrUpdateEntrant(@RequestBody TypeEntrant typeEntrant){
-		TypeEntrant newTE = typeEntrantService.saveOrUpdateEntrant(typeEntrant);
-		return new ResponseEntity<TypeEntrant>(newTE,HttpStatus.CREATED);
+	@PostMapping("entrantsType")
+	public ResponseEntity<?> saveOrUpdateEntrant(@RequestBody EntrantType typeEntrant){
+		EntrantType newTE = typeEntrantService.saveOrUpdateEntrant(typeEntrant);
+		return new ResponseEntity<EntrantType>(newTE,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("typeentrants/{te_id}")
+	@GetMapping("entrantsType/{te_id}")
 	public ResponseEntity<?> getEById(@PathVariable Integer te_id){
-		Optional<TypeEntrant> entrant = typeEntrantService.findById(te_id);
-		return new ResponseEntity<Optional<TypeEntrant>>(entrant, HttpStatus.OK);
+		Optional<EntrantType> entrant = typeEntrantService.findById(te_id);
+		return new ResponseEntity<Optional<EntrantType>>(entrant, HttpStatus.OK);
 	}
 }

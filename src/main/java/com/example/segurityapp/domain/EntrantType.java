@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class TypeEntrant {
+public class EntrantType {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class TypeEntrant {
 	
 	private String description;
 
-	public TypeEntrant() {
+	public EntrantType() {
 		
 	}
 

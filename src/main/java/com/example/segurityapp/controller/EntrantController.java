@@ -29,7 +29,7 @@ public class EntrantController {
 		return entrantService.findAll();
 	}
 	
-	@GetMapping("entrantspaged")
+	@GetMapping("entrantsPaged")
 	public Iterable<Entrant> getAllPTs(Pageable pageable){
 		return entrantService.findAll(pageable);
 	}
