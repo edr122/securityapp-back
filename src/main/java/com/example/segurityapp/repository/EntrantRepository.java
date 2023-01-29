@@ -1,11 +1,9 @@
 package com.example.segurityapp.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.example.segurityapp.domain.Entrant;
 
-@Repository
-public interface EntrantRepository extends JpaRepository<Entrant, Integer>{
-
+public interface EntrantRepository extends JpaRepository<Entrant, Integer> {
+	List<Entrant> findByDniContaining(String dni);
 }

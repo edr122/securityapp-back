@@ -1,42 +1,35 @@
 package com.example.segurityapp.domain;
 
-//import javax.persistence.CascadeType;
-//import javax.persistence.Column;
 import javax.persistence.Entity;
-//import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.ManyToOne;
-//import javax.persistence.JoinColumn;
-//import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "entrant")
 public class Entrant {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
+	private Integer entraId;
+
 	private String dni;
 	private String name;
 	private String lastName;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "entrantTypeId")
+	private EntrantType entrantType;
+
 //	@ManyToOne(fetch=FetchType.LAZY)
 //    @JoinColumn(name = "typeentrant_id")
 //    private TypeEntrant typeEntrant;
-	
+
 	public Entrant() {
-		
-	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 //	public TypeEntrant getTypeEntrant() {
@@ -49,6 +42,14 @@ public class Entrant {
 
 	public String getDni() {
 		return dni;
+	}
+
+	public Integer getEntraId() {
+		return entraId;
+	}
+
+	public void setEntraId(Integer entraId) {
+		this.entraId = entraId;
 	}
 
 	public void setDni(String dni) {
@@ -70,5 +71,13 @@ public class Entrant {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
+	public EntrantType getEntrantType() {
+		return entrantType;
+	}
+
+	public void setEntrantType(EntrantType entrantType) {
+		this.entrantType = entrantType;
+	}
+
 }

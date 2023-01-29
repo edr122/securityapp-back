@@ -1,22 +1,25 @@
 package com.example.segurityapp.service;
 
-import java.util.Optional;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import com.example.segurityapp.domain.Entrant;
+import java.util.List;
+import com.example.segurityapp.dto.EntrantDto;
+import com.example.segurityapp.payloads.EntrantResponse;
 
 public interface EntrantService {
-	
-	public Iterable<Entrant> findAll();
-	
-	public Page<Entrant> findAll(Pageable pageable);
-	
-	public Entrant saveOrUpdateEntrant(Entrant entrant);
-	
-	public Optional<Entrant> findById(Integer id);
-	
-	public void delete(Integer id);
+
+	EntrantDto createEntrat(EntrantDto entrantDto, Integer entrantTypeId);
+
+	EntrantResponse getAllEntrantsByPage(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+
+//	public Page<Entrant> findAll(Pageable pageable);
+
+	List<EntrantDto> getAllEntrants();
+
+	List<EntrantDto> searchEntrantByDni(String keyword);
+
+	EntrantDto getEntrantById(Integer entrantId);
+
+	void deleteEntrant(Integer entrantId);
+
+	EntrantDto updateEntrant(EntrantDto entrantDto, Integer entrantId);
 
 }
