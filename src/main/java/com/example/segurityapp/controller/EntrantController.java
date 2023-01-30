@@ -1,6 +1,9 @@
 package com.example.segurityapp.controller;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +49,7 @@ public class EntrantController {
 	}
 
 	@PostMapping("entrants/entrantType/{entrantTypeId}")
-	public ResponseEntity<EntrantDto> createPost(@RequestBody EntrantDto entrantDto,
+	public ResponseEntity<EntrantDto> createPost(@RequestBody @Valid EntrantDto entrantDto,
 			@PathVariable Integer entrantTypeId) {
 		EntrantDto savedEntrant = this.entrantService.createEntrat(entrantDto, entrantTypeId);
 		return new ResponseEntity<EntrantDto>(savedEntrant, HttpStatus.CREATED);
