@@ -11,12 +11,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "entrant")
+@Table(name = "entrants")
 public class Entrant {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer entraId;
+	private Integer id;
 
 	@Column(nullable = false, unique = true)
 	@NotBlank(message = "Dni is required")
@@ -48,16 +48,16 @@ public class Entrant {
 //		this.typeEntrant = typeEntrant;
 //	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getDni() {
 		return dni;
-	}
-
-	public Integer getEntraId() {
-		return entraId;
-	}
-
-	public void setEntraId(Integer entraId) {
-		this.entraId = entraId;
 	}
 
 	public void setDni(String dni) {

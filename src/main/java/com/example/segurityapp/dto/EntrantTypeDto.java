@@ -7,8 +7,8 @@ import org.hibernate.validator.constraints.Length;
 
 public class EntrantTypeDto {
 
-	private Integer entrantTypeId;
-	
+	private Integer id;
+
 	@Column(nullable = false, unique = true)
 	@NotBlank(message = "Description is required")
 	@Length(min = 5, max = 512, message = "Description must have 5-100 characters")
@@ -18,12 +18,12 @@ public class EntrantTypeDto {
 
 	}
 
-	public Integer getEntrantTypeId() {
-		return entrantTypeId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setEntrantTypeId(Integer entrantTypeId) {
-		this.entrantTypeId = entrantTypeId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getDescription() {

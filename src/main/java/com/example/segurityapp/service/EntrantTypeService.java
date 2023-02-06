@@ -9,13 +9,13 @@ public interface EntrantTypeService {
 //	
 //	public Page<EntrantType> findAll(Pageable pageable);
 
-	public EntrantTypeDto createEntrant(EntrantTypeDto typeEntrant);
+	public EntrantTypeDto createEntrant(EntrantTypeDto entrantTypeDto);
 
 	List<EntrantTypeDto> getAllEntrantTypes();
 
-	EntrantTypeDto getEntrantTypeById(Integer typeEntrantId);
+	EntrantTypeDto getEntrantTypeById(Integer id);
 
-	void deleteEntrantType(Integer typeEntrantId);
+	void deleteEntrantType(Integer id);
 
-	EntrantTypeDto updateEntrantType(EntrantTypeDto entrantTypeDto, Integer typeEntrantId);
+	EntrantTypeDto updateEntrantType(EntrantTypeDto entrantTypeDto, Integer id);
 }

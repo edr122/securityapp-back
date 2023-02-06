@@ -6,7 +6,7 @@ import com.example.segurityapp.payloads.EntrantResponse;
 
 public interface EntrantService {
 
-	EntrantDto createEntrat(EntrantDto entrantDto, Integer entrantTypeId);
+	EntrantDto createEntrat(EntrantDto entrantDto, Integer id);
 
 	EntrantResponse getAllEntrantsByPage(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
@@ -16,10 +16,10 @@ public interface EntrantService {
 
 	List<EntrantDto> searchEntrantByDni(String keyword);
 
-	EntrantDto getEntrantById(Integer entrantId);
+	EntrantDto getEntrantById(Integer id);
 
-	void deleteEntrant(Integer entrantId);
+	void deleteEntrant(Integer id);
 
-	EntrantDto updateEntrant(EntrantDto entrantDto, Integer entrantId);
+	EntrantDto updateEntrant(EntrantDto entrantDto, Integer id);
 
 }

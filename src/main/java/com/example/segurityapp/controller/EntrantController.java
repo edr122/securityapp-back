@@ -48,10 +48,10 @@ public class EntrantController {
 		return new ResponseEntity<EntrantResponse>(entrantResponse, HttpStatus.OK);
 	}
 
-	@PostMapping("entrants/entrantType/{entrantTypeId}")
+	@PostMapping("entrants/entrantType/{id}")
 	public ResponseEntity<EntrantDto> createPost(@RequestBody @Valid EntrantDto entrantDto,
-			@PathVariable Integer entrantTypeId) {
-		EntrantDto savedEntrant = this.entrantService.createEntrat(entrantDto, entrantTypeId);
+			@PathVariable Integer id) {
+		EntrantDto savedEntrant = this.entrantService.createEntrat(entrantDto, id);
 		return new ResponseEntity<EntrantDto>(savedEntrant, HttpStatus.CREATED);
 	}
 
@@ -67,21 +67,21 @@ public class EntrantController {
 		return new ResponseEntity<List<EntrantDto>>(result, HttpStatus.OK);
 	}
 
-	@GetMapping("/entrants/{entrantId}")
-	public ResponseEntity<EntrantDto> getPostById(@PathVariable Integer entrantId) {
-		EntrantDto entrant = this.entrantService.getEntrantById(entrantId);
+	@GetMapping("/entrants/{id}")
+	public ResponseEntity<EntrantDto> getPostById(@PathVariable Integer id) {
+		EntrantDto entrant = this.entrantService.getEntrantById(id);
 		return new ResponseEntity<EntrantDto>(entrant, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/entrants/{entrantId}")
-	public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer entrantId) {
-		entrantService.deleteEntrant(entrantId);
+	@DeleteMapping("/entrants/{id}")
+	public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer id) {
+		entrantService.deleteEntrant(id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Entrant Deleted successfully", true), HttpStatus.OK);
 	}
 
-	@PutMapping("/entrants/{entrantId}")
-	public ResponseEntity<EntrantDto> updatePost(@RequestBody EntrantDto entrantDto, @PathVariable Integer entrantId) {
-		EntrantDto post = entrantService.updateEntrant(entrantDto, entrantId);
+	@PutMapping("/entrants/{id}")
+	public ResponseEntity<EntrantDto> updatePost(@RequestBody EntrantDto entrantDto, @PathVariable Integer id) {
+		EntrantDto post = entrantService.updateEntrant(entrantDto, id);
 		return new ResponseEntity<EntrantDto>(post, HttpStatus.OK);
 	}
 }

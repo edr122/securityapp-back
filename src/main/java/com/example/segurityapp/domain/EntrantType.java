@@ -16,12 +16,12 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Table(name = "entrantType")
+@Table(name = "entrantTypes")
 public class EntrantType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer entrantTypeId;
+	private Integer id;
 
 	@Column(nullable = false, unique = true)
 	@NotBlank(message = "Description is required")
@@ -35,12 +35,12 @@ public class EntrantType {
 
 	}
 
-	public Integer getEntrantTypeId() {
-		return entrantTypeId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setEntrantTypeId(Integer entrantTypeId) {
-		this.entrantTypeId = entrantTypeId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getDescription() {

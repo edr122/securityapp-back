@@ -62,8 +62,10 @@ public class WebSecurityConfig {
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
 				.antMatchers("/api/auth/**").permitAll().antMatchers("/api/test/**").permitAll().and()
 				.authorizeRequests().antMatchers("/h2-console/**").permitAll().antMatchers("/h2-console/**").permitAll()
-				.antMatchers("/api/segurityapp/entrants/**").hasRole("ADMIN")
-				.antMatchers("/api/segurityapp/entrantTypes/**").hasRole("USER").anyRequest().authenticated();
+//				.antMatchers("/api/segurityapp/entrants/**").hasRole("ADMIN")
+//				.antMatchers("/api/segurityapp/entrantTypes/**").hasRole("USER")
+				.antMatchers("/api/segurityapp/entrantTypes/**").permitAll().antMatchers("/api/segurityapp/entrants/**")
+				.permitAll().anyRequest().authenticated();
 
 		http.authenticationProvider(authenticationProvider());
 

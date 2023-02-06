@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 
 public class EntrantDto {
 
-	private Integer entraId;
+	private Integer id;
 
 	@Column(nullable = false, unique = true)
 	@NotBlank(message = "Dni is required")
@@ -23,12 +23,12 @@ public class EntrantDto {
 
 	}
 
-	public Integer getEntraId() {
-		return entraId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setEntraId(Integer entraId) {
-		this.entraId = entraId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getDni() {

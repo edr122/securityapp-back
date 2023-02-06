@@ -65,9 +65,9 @@ public class EntrantServiceImpl implements EntrantService {
 	}
 
 	@Override
-	public EntrantDto createEntrat(EntrantDto entrantDto, Integer entrantTypeId) {
+	public EntrantDto createEntrat(EntrantDto entrantDto, Integer id) {
 
-		EntrantType entrantType = this.entrantTypeRepository.findById(entrantTypeId)
+		EntrantType entrantType = this.entrantTypeRepository.findById(id)
 				.orElseThrow(IllegalArgumentException::new);
 
 		Entrant entrant = this.modelMapper.map(entrantDto, Entrant.class);
@@ -96,8 +96,8 @@ public class EntrantServiceImpl implements EntrantService {
 	}
 
 	@Override
-	public EntrantDto getEntrantById(Integer entrantId) {
-		Entrant entrant = this.entrantRepository.findById(entrantId).get();
+	public EntrantDto getEntrantById(Integer id) {
+		Entrant entrant = this.entrantRepository.findById(id).get();
 		return this.modelMapper.map(entrant, EntrantDto.class);
 
 	}
