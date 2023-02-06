@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.segurityapp.dto.EntrantDto;
 import com.example.segurityapp.payloads.EntrantResponse;
 import com.example.segurityapp.service.EntrantService;
+
+import io.swagger.v3.oas.annotations.Operation;
+
 import com.example.segurityapp.payloads.ApiResponse;
 import com.example.segurityapp.config.AppConstants;
 
@@ -38,6 +41,7 @@ public class EntrantController {
 //	
 	// pagination and sorting
 	@GetMapping("entrantsPagedStatic")
+	@Operation(summary = "Get All Entrants Pagination")
 	public ResponseEntity<EntrantResponse> getAllEntrantsByPage(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,

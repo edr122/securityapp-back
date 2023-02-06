@@ -64,6 +64,8 @@ public class WebSecurityConfig {
 				.authorizeRequests().antMatchers("/h2-console/**").permitAll().antMatchers("/h2-console/**").permitAll()
 //				.antMatchers("/api/segurityapp/entrants/**").hasRole("ADMIN")
 //				.antMatchers("/api/segurityapp/entrantTypes/**").hasRole("USER")
+				.antMatchers("/v3/**").permitAll()
+				.antMatchers("/swagger-ui/**").permitAll()
 				.antMatchers("/api/segurityapp/entrantTypes/**").permitAll().antMatchers("/api/segurityapp/entrants/**")
 				.permitAll().anyRequest().authenticated();
 
