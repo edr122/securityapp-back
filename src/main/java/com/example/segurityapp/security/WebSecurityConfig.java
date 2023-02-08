@@ -60,13 +60,14 @@ public class WebSecurityConfig {
 		http.headers().frameOptions().disable();
 		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/auth/**").permitAll().antMatchers("/api/test/**").permitAll().and()
+				.antMatchers("/api/securityapp/auth/**").permitAll().antMatchers("/api/test/**").permitAll().and()
 				.authorizeRequests().antMatchers("/h2-console/**").permitAll().antMatchers("/h2-console/**").permitAll()
 //				.antMatchers("/api/segurityapp/entrants/**").hasRole("ADMIN")
 //				.antMatchers("/api/segurityapp/entrantTypes/**").hasRole("USER")
 				.antMatchers("/v3/**").permitAll()
 				.antMatchers("/swagger-ui/**").permitAll()
-				.antMatchers("/api/segurityapp/entrantTypes/**").permitAll().antMatchers("/api/segurityapp/entrants/**")
+				.antMatchers("/api/securityapp/entrantTypes/**")
+				.permitAll().antMatchers("/api/securityapp/entrants/**")
 				.permitAll().anyRequest().authenticated();
 
 		http.authenticationProvider(authenticationProvider());

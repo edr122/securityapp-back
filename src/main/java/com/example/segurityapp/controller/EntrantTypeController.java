@@ -21,7 +21,7 @@ import com.example.segurityapp.service.EntrantTypeService;
 import com.example.segurityapp.payloads.ApiResponse;
 
 @RestController
-@RequestMapping("/api/segurityapp/")
+@RequestMapping("/api/securityapp/")
 @CrossOrigin
 public class EntrantTypeController {
 

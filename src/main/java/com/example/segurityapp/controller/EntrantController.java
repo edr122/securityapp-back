@@ -27,7 +27,7 @@ import com.example.segurityapp.payloads.ApiResponse;
 import com.example.segurityapp.config.AppConstants;
 
 @RestController
-@RequestMapping("/api/segurityapp/")
+@RequestMapping("/api/securityapp/")
 @CrossOrigin
 public class EntrantController {
 
@@ -40,7 +40,7 @@ public class EntrantController {
 //	}
 //	
 	// pagination and sorting
-	@GetMapping("entrantsPagedStatic")
+	@GetMapping("entrants/entrantsPagedStatic")
 	@Operation(summary = "Get All Entrants Pagination")
 	public ResponseEntity<EntrantResponse> getAllEntrantsByPage(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
