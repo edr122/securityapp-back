@@ -66,9 +66,9 @@ public class WebSecurityConfig {
 //				.antMatchers("/api/segurityapp/entrantTypes/**").hasRole("USER")
 				.antMatchers("/v3/**").permitAll()
 				.antMatchers("/swagger-ui/**").permitAll()
-				.antMatchers("/api/securityapp/entrantTypes/**")
-				.permitAll().antMatchers("/api/securityapp/entrants/**")
-				.permitAll().anyRequest().authenticated();
+//				.antMatchers("/api/securityapp/entrantTypes/**").permitAll()
+//				.antMatchers("/api/securityapp/entrants/**").permitAll()
+				.anyRequest().authenticated();
 
 		http.authenticationProvider(authenticationProvider());
 

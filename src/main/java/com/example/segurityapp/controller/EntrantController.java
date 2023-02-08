@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +43,7 @@ public class EntrantController {
 	// pagination and sorting
 	@GetMapping("entrants/entrantsPagedStatic")
 	@Operation(summary = "Get All Entrants Pagination")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<EntrantResponse> getAllEntrantsByPage(
 			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
@@ -51,20 +53,23 @@ public class EntrantController {
 				sortDir);
 		return new ResponseEntity<EntrantResponse>(entrantResponse, HttpStatus.OK);
 	}
-
+	
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	@PostMapping("entrants/entrantType/{id}")
 	public ResponseEntity<EntrantDto> createPost(@RequestBody @Valid EntrantDto entrantDto,
 			@PathVariable Integer id) {
 		EntrantDto savedEntrant = this.entrantService.createEntrat(entrantDto, id);
 		return new ResponseEntity<EntrantDto>(savedEntrant, HttpStatus.CREATED);
 	}
-
+	
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	@GetMapping("/entrants")
 	public ResponseEntity<List<EntrantDto>> getAllPosts() {
 		List<EntrantDto> entrants = this.entrantService.getAllEntrants();
 		return new ResponseEntity<List<EntrantDto>>(entrants, HttpStatus.OK);
 	}
-
+	
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	@GetMapping("/entrants/searchDni/{keywords}")
 	public ResponseEntity<List<EntrantDto>> searchPostByTitle(@PathVariable("keywords") String keywords) {
 		List<EntrantDto> result = this.entrantService.searchEntrantByDni(keywords);
@@ -72,18 +77,21 @@ public class EntrantController {
 	}
 
 	@GetMapping("/entrants/{id}")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<EntrantDto> getPostById(@PathVariable Integer id) {
 		EntrantDto entrant = this.entrantService.getEntrantById(id);
 		return new ResponseEntity<EntrantDto>(entrant, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/entrants/{id}")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer id) {
 		entrantService.deleteEntrant(id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Entrant Deleted successfully", true), HttpStatus.OK);
 	}
 
 	@PutMapping("/entrants/{id}")
+	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<EntrantDto> updatePost(@RequestBody EntrantDto entrantDto, @PathVariable Integer id) {
 		EntrantDto post = entrantService.updateEntrant(entrantDto, id);
 		return new ResponseEntity<EntrantDto>(post, HttpStatus.OK);

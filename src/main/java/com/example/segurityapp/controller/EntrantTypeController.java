@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,26 +38,30 @@ public class EntrantTypeController {
 //	public Iterable<EntrantType> getAllPTs(Pageable pageable){
 //		return entrantTypeService.findAll(pageable);
 //	}
-
+	
 	@PostMapping("entrantTypes")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<EntrantTypeDto> saveOrUpdateEntrant(@RequestBody @Valid EntrantTypeDto entrantsTypeDto) {
 		EntrantTypeDto savedEntrantType = entrantTypeService.createEntrant(entrantsTypeDto);
 		return new ResponseEntity<EntrantTypeDto>(savedEntrantType, HttpStatus.CREATED);
 	}
 
 	@GetMapping("entrantTypes")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<List<EntrantTypeDto>> getAllEntrantTypes() {
 		List<EntrantTypeDto> entrantTypes = entrantTypeService.getAllEntrantTypes();
 		return new ResponseEntity<List<EntrantTypeDto>>(entrantTypes, HttpStatus.OK);
 	}
 
 	@GetMapping("entrantTypes/{entrantTypeId}")
+	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	public ResponseEntity<EntrantTypeDto> getCategoryById(@PathVariable Integer entrantTypeId) {
 		EntrantTypeDto entrantTypeDto = entrantTypeService.getEntrantTypeById(entrantTypeId);
 		return new ResponseEntity<EntrantTypeDto>(entrantTypeDto, HttpStatus.OK);
 	}
 
 	@DeleteMapping("entrantTypes/{entrantTypeId}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<ApiResponse> deleteEntrantType(@PathVariable Integer entrantTypeId) {
 		entrantTypeService.deleteEntrantType(entrantTypeId);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Entrant Type deleted Successfully", true),
@@ -64,6 +69,7 @@ public class EntrantTypeController {
 	}
 
 	@PutMapping("entrantTypes/{entrantTypeId}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<EntrantTypeDto> updateEntrantType(@RequestBody EntrantTypeDto entrantTypeDto,
 			@PathVariable Integer entrantTypeId) {
 		EntrantTypeDto updatedCategory = entrantTypeService.updateEntrantType(entrantTypeDto, entrantTypeId);
