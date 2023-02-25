@@ -55,7 +55,7 @@ public class EntrantTypeController {
 
 	@GetMapping("entrantTypes/{entrantTypeId}")
 	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-	public ResponseEntity<EntrantTypeDto> getCategoryById(@PathVariable Integer entrantTypeId) {
+	public ResponseEntity<EntrantTypeDto> getEntrantTypeById(@PathVariable Integer entrantTypeId) {
 		EntrantTypeDto entrantTypeDto = entrantTypeService.getEntrantTypeById(entrantTypeId);
 		return new ResponseEntity<EntrantTypeDto>(entrantTypeDto, HttpStatus.OK);
 	}
