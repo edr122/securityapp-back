@@ -55,7 +55,7 @@ public class EntrantController {
 	}
 	
 	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-	@PostMapping("entrants/entrantType/{id}")
+	@PostMapping("entrantTypes/{id}/entrants")
 	public ResponseEntity<EntrantDto> createPost(@RequestBody @Valid EntrantDto entrantDto,
 			@PathVariable Integer id) {
 		EntrantDto savedEntrant = this.entrantService.createEntrat(entrantDto, id);
