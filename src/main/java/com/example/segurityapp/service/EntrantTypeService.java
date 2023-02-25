@@ -9,7 +9,7 @@ public interface EntrantTypeService {
 //	
 //	public Page<EntrantType> findAll(Pageable pageable);
 
-	public EntrantTypeDto createEntrant(EntrantTypeDto entrantTypeDto);
+	public EntrantTypeDto createEntrantType(EntrantTypeDto entrantTypeDto);
 
 	List<EntrantTypeDto> getAllEntrantTypes();
 

@@ -43,7 +43,7 @@ public class EntrantTypeServiceImpl implements EntrantTypeService {
 
 	// methods
 	@Override
-	public EntrantTypeDto createEntrant(EntrantTypeDto entrantTypeDto) {
+	public EntrantTypeDto createEntrantType(EntrantTypeDto entrantTypeDto) {
 		EntrantType entrantType = this.DtoToEntrantType(entrantTypeDto);
 		EntrantType savedEntrantType = typeEntrantRepository.save(entrantType);
 		return this.EntrantTypeToDto(savedEntrantType);

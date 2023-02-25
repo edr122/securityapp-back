@@ -41,8 +41,8 @@ public class EntrantTypeController {
 	
 	@PostMapping("entrantTypes")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<EntrantTypeDto> saveOrUpdateEntrant(@RequestBody @Valid EntrantTypeDto entrantsTypeDto) {
-		EntrantTypeDto savedEntrantType = entrantTypeService.createEntrant(entrantsTypeDto);
+	public ResponseEntity<EntrantTypeDto> saveOrUpdateEntrantType(@RequestBody @Valid EntrantTypeDto entrantsTypeDto) {
+		EntrantTypeDto savedEntrantType = entrantTypeService.createEntrantType(entrantsTypeDto);
 		return new ResponseEntity<EntrantTypeDto>(savedEntrantType, HttpStatus.CREATED);
 	}
 
