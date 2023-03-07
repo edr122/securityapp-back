@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 //import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,7 +21,6 @@ import com.example.segurityapp.security.jwt.AuthTokenFilter;
 import com.example.segurityapp.security.services.UserDetailsServiceImpl;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
@@ -58,17 +56,22 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable();
-		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/securityapp/auth/**").permitAll().antMatchers("/api/test/**").permitAll().and()
-				.authorizeRequests().antMatchers("/h2-console/**").permitAll().antMatchers("/h2-console/**").permitAll()
+		http.cors()
+			.and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			.and().authorizeRequests()
+			.antMatchers("/api/securityapp/auth/**").permitAll()
+			.antMatchers("/api/test/**").permitAll()
+			.and().authorizeRequests()
+			.antMatchers("/h2-console/**").permitAll()
+			.antMatchers("/h2-console/**").permitAll()
 //				.antMatchers("/api/segurityapp/entrants/**").hasRole("ADMIN")
 //				.antMatchers("/api/segurityapp/entrantTypes/**").hasRole("USER")
-				.antMatchers("/v3/**").permitAll()
-				.antMatchers("/swagger-ui/**").permitAll()
+			.antMatchers("/v3/**").permitAll()
+			.antMatchers("/swagger-ui/**").permitAll()
 //				.antMatchers("/api/securityapp/entrantTypes/**").permitAll()
 //				.antMatchers("/api/securityapp/entrants/**").permitAll()
-				.anyRequest().authenticated();
+			.anyRequest().authenticated();
 
 		http.authenticationProvider(authenticationProvider());
 
@@ -76,4 +79,44 @@ public class WebSecurityConfig {
 
 		return http.build();
 	}
+
+	//https://www.javachinna.com/configure-openapi-spec-basic-jwt-authentication/
+	
+	/*
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // http.csrf().disable()
+        // .authorizeRequests()
+        // .antMatchers(HttpMethod.GET, "/api/**")
+        // .permitAll()
+        // .anyRequest()
+        // .authenticated()
+        // .and()
+        // .httpBasic();
+
+        http.csrf().disable()
+        .exceptionHandling()
+        .authenticationEntryPoint(unauthorizedHandler)
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .authorizeRequests().antMatchers(HttpMethod.GET, "/api/**").permitAll()
+        .antMatchers("/api/securityapp/auth/**").permitAll()
+        .antMatchers(AUTH_WHITELIST).permitAll()
+        .anyRequest()
+        .authenticated();
+
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+*/
+    private static final String[] AUTH_WHITELIST = {
+		"/api/securityapp/auth/**",
+        "/swagger-resources/**",
+        "/swagger-ui.html",
+        "/v2/api-docs",
+        "/v3/**",
+        "/webjars/**",
+        "/swagger-ui/**"
+	};
 }

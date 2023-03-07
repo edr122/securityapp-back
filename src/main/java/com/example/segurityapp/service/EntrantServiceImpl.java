@@ -1,6 +1,7 @@
 package com.example.segurityapp.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,6 @@ public class EntrantServiceImpl implements EntrantService {
 
 	@Autowired()
 	private ModelMapper modelMapper;
-
-//	@Override
-//	public Page<Entrant> findAll(Pageable pageable) {
-//		// TODO Auto-generated method stub
-//		return entrantRepository.findAll(pageable);
-//	}
 
 	@Override
 	public EntrantResponse getAllEntrantsByPage(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
@@ -74,7 +69,7 @@ public class EntrantServiceImpl implements EntrantService {
 
 		entrant.setEntrantType(entrantType);
 
-		Entrant saveEntrant = this.entrantRepository.save(entrant);
+		this.entrantRepository.save(entrant);
 
 		return this.modelMapper.map(entrant, EntrantDto.class);
 	}
@@ -121,5 +116,10 @@ public class EntrantServiceImpl implements EntrantService {
 		Entrant updatedEntrant = entrantRepository.save(entrant);
 
 		return this.modelMapper.map(updatedEntrant, EntrantDto.class);
+	}
+	
+	@Override
+	public Optional<Entrant> findByDni(String dni){
+		return entrantRepository.findByDni(dni);
 	}
 }

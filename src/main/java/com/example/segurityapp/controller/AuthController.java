@@ -4,9 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.segurityapp.domain.Role;
 import com.example.segurityapp.domain.User;
 import com.example.segurityapp.domain.ERole;
@@ -31,6 +28,8 @@ import com.example.segurityapp.repository.RoleRepository;
 import com.example.segurityapp.repository.UserRepository;
 import com.example.segurityapp.security.jwt.JwtUtils;
 import com.example.segurityapp.security.services.UserDetailsImpl;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -53,6 +52,7 @@ public class AuthController {
 	JwtUtils jwtUtils;
 
 	@PostMapping("/signin")
+	@Operation(summary = "Login The System")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
@@ -70,6 +70,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/signup")
+	@Operation(summary = "Register System User")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));

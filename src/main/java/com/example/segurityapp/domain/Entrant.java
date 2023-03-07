@@ -2,6 +2,7 @@ package com.example.segurityapp.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,6 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import org.hibernate.validator.constraints.Length;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 @Entity
 @Table(name = "entrants")
@@ -20,33 +25,26 @@ public class Entrant {
 
 	@Column(nullable = false, unique = true)
 	@NotBlank(message = "Dni is required")
+	@Length(min = 8, max = 8, message = "Dni must have 8 characters")
 	private String dni;
 
 	@NotBlank(message = "Name is required")
+	@Length(min = 3, max = 150, message = "Name is required must have 5-150 characters")
 	private String name;
 
 	@NotBlank(message = "Last Name is required")
+	@Length(min = 3, max = 150, message = "Last Name is required must have 5-150 characters")
 	private String lastName;
 
-	@ManyToOne
+	@JsonManagedReference
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "entrantTypeId")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private EntrantType entrantType;
-
-//	@ManyToOne(fetch=FetchType.LAZY)
-//    @JoinColumn(name = "typeentrant_id")
-//    private TypeEntrant typeEntrant;
 
 	public Entrant() {
 
 	}
-
-//	public TypeEntrant getTypeEntrant() {
-//		return typeEntrant;
-//	}
-//
-//	public void setTypeEntrant(TypeEntrant typeEntrant) {
-//		this.typeEntrant = typeEntrant;
-//	}
 
 	public Integer getId() {
 		return id;
@@ -87,5 +85,5 @@ public class Entrant {
 	public void setEntrantType(EntrantType entrantType) {
 		this.entrantType = entrantType;
 	}
-
+	
 }
