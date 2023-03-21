@@ -22,7 +22,7 @@ public class EntrantServiceImpl implements EntrantService {
 
 	@Autowired
 	private EntrantRepository entrantRepository;
-
+	
 	@Autowired
 	private EntrantTypeRepository entrantTypeRepository;
 
@@ -122,4 +122,5 @@ public class EntrantServiceImpl implements EntrantService {
 	public Optional<Entrant> findByDni(String dni){
 		return entrantRepository.findByDni(dni);
 	}
+
 }

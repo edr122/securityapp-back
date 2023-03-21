@@ -3,7 +3,6 @@ package com.example.segurityapp.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,7 +51,7 @@ public class EntrantController {
 	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	@Operation(summary = "Save entrant with your entrantType")
 	@PostMapping("entrantTypes/{id}/entrants")
-	public ResponseEntity<?> createPost(@RequestBody @Valid EntrantDto entrantDto,
+	public ResponseEntity<?> createEntrant(@RequestBody @Valid EntrantDto entrantDto,
 			@PathVariable Integer id, BindingResult result) {
 		
 		Map<String, Object> response = new HashMap<>();
@@ -84,7 +83,7 @@ public class EntrantController {
 	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	@Operation(summary = "Get All Entrants no pagination")
 	@GetMapping("/entrants")
-	public ResponseEntity<List<EntrantDto>> getAllPosts() {
+	public ResponseEntity<List<EntrantDto>> getAllEntrants() {
 		List<EntrantDto> entrants = this.entrantService.getAllEntrants();
 		return new ResponseEntity<List<EntrantDto>>(entrants, HttpStatus.OK);
 	}
@@ -92,7 +91,7 @@ public class EntrantController {
 	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
 	@Operation(summary = "Search by DNI")
 	@GetMapping("/entrants/searchDni/{keywords}")
-	public ResponseEntity<List<EntrantDto>> searchPostByTitle(@PathVariable("keywords") String keywords) {
+	public ResponseEntity<List<EntrantDto>> searchEntrantByDni(@PathVariable("keywords") String keywords) {
 		List<EntrantDto> result = this.entrantService.searchEntrantByDni(keywords);
 		return new ResponseEntity<List<EntrantDto>>(result, HttpStatus.OK);
 	}
@@ -100,7 +99,7 @@ public class EntrantController {
 	@GetMapping("/entrants/{id}")
 	@Operation(summary = "Get One Entrant")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-	public ResponseEntity<EntrantDto> getPostById(@PathVariable Integer id) {
+	public ResponseEntity<EntrantDto> getEntrantById(@PathVariable Integer id) {
 		EntrantDto entrant = this.entrantService.getEntrantById(id);
 		return new ResponseEntity<EntrantDto>(entrant, HttpStatus.OK);
 	}
@@ -108,7 +107,7 @@ public class EntrantController {
 	@DeleteMapping("/entrants/{id}")
 	@Operation(summary = "Delete One Entrant")
 	@PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-	public ResponseEntity<ApiResponse> deletePost(@PathVariable Integer id) {
+	public ResponseEntity<ApiResponse> deleteEntrant(@PathVariable Integer id) {
 		entrantService.deleteEntrant(id);
 		return new ResponseEntity<ApiResponse>(new ApiResponse("Entrant Deleted Successfully", true), HttpStatus.OK);
 	}
@@ -116,8 +115,8 @@ public class EntrantController {
 	@PutMapping("/entrants/{id}")
 	@Operation(summary = "Update One Entrant")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-	public ResponseEntity<EntrantDto> updatePost(@RequestBody EntrantDto entrantDto, @PathVariable Integer id) {
-		EntrantDto post = entrantService.updateEntrant(entrantDto, id);
-		return new ResponseEntity<EntrantDto>(post, HttpStatus.OK);
+	public ResponseEntity<EntrantDto> updateEntrant(@RequestBody EntrantDto entrantDto, @PathVariable Integer id) {
+		EntrantDto entrant = entrantService.updateEntrant(entrantDto, id);
+		return new ResponseEntity<EntrantDto>(entrant, HttpStatus.OK);
 	}
 }

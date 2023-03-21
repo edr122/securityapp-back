@@ -89,7 +89,7 @@ public class EntrantTypeController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<EntrantTypeDto> updateEntrantType(@RequestBody EntrantTypeDto entrantTypeDto,
 			@PathVariable Integer entrantTypeId) {
-		EntrantTypeDto updatedCategory = entrantTypeService.updateEntrantType(entrantTypeDto, entrantTypeId);
-		return new ResponseEntity<EntrantTypeDto>(updatedCategory, HttpStatus.OK);
+		EntrantTypeDto updatedEntrantType = entrantTypeService.updateEntrantType(entrantTypeDto, entrantTypeId);
+		return new ResponseEntity<EntrantTypeDto>(updatedEntrantType, HttpStatus.OK);
 	}
 }

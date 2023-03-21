@@ -1,5 +1,9 @@
 package com.example.segurityapp.domain;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -41,6 +47,12 @@ public class Entrant {
 	@JoinColumn(name = "entrantTypeId")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private EntrantType entrantType;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(	name = "rel_entrants_offices",
+				joinColumns = @JoinColumn(name="entrant_id",referencedColumnName = "id"),
+				inverseJoinColumns = @JoinColumn(name="office_id",referencedColumnName = "id"))
+	private List<Office> offices;
 
 	public Entrant() {
 
@@ -85,5 +97,17 @@ public class Entrant {
 	public void setEntrantType(EntrantType entrantType) {
 		this.entrantType = entrantType;
 	}
-	
+
+	public List<Office> getOffices() {
+		return offices == null ? null : new ArrayList<>(offices);
+	}
+
+	public void setOffices(List<Office> offices) {
+		if(offices == null){
+			this.offices = null;
+		} else {
+			this.offices = Collections.unmodifiableList(offices);
+		}
+		
+	}
 }

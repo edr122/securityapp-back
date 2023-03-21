@@ -75,8 +75,8 @@ public class EntrantTypeServiceImpl implements EntrantTypeService {
 
 	@Override
 	public void deleteEntrantType(Integer typeEntrantId) {
-		EntrantType category = entrantTypeRepository.findById(typeEntrantId).get();
-		entrantTypeRepository.delete(category);
+		EntrantType entrantType = entrantTypeRepository.findById(typeEntrantId).get();
+		entrantTypeRepository.delete(entrantType);
 	}
 
 	@Override
