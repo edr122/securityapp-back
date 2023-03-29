@@ -1,6 +1,7 @@
 package com.example.segurityapp.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
@@ -12,10 +13,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.example.segurityapp.domain.Entrant;
 import com.example.segurityapp.domain.EntrantType;
+import com.example.segurityapp.domain.Office;
 import com.example.segurityapp.dto.EntrantDto;
+import com.example.segurityapp.dto.OfficeDto;
 import com.example.segurityapp.payloads.EntrantResponse;
 import com.example.segurityapp.repository.EntrantRepository;
 import com.example.segurityapp.repository.EntrantTypeRepository;
+import com.example.segurityapp.repository.OfficeRepository;
 
 @Service
 public class EntrantServiceImpl implements EntrantService {
@@ -25,6 +29,9 @@ public class EntrantServiceImpl implements EntrantService {
 	
 	@Autowired
 	private EntrantTypeRepository entrantTypeRepository;
+	
+	@Autowired
+	private OfficeRepository officeRepository;
 
 	@Autowired()
 	private ModelMapper modelMapper;
@@ -69,9 +76,29 @@ public class EntrantServiceImpl implements EntrantService {
 
 		entrant.setEntrantType(entrantType);
 
-		this.entrantRepository.save(entrant);
+		List<OfficeDto> offices = entrantDto.getOffices();
+		if(offices != null) {
+			for (OfficeDto officeDto : offices) {
+				Office officeOld = null;
+				try {
+					officeOld = this.officeRepository.findById(officeDto.getId()).get();
+				} catch (NoSuchElementException e) {
+					officeOld = null;
+				}
+				if (officeOld != null) {
+					entrant.addOffice(officeOld);
+				} else {
+					Office office = new Office();
+					office.setName(officeDto.getName());
+					Office officeSaved = this.officeRepository.save(office);
+					entrant.addOffice(officeSaved);
+				}
+			}
+		}
 
-		return this.modelMapper.map(entrant, EntrantDto.class);
+		Entrant entrantSaved = this.entrantRepository.save(entrant);
+		
+		return this.modelMapper.map(entrantSaved, EntrantDto.class);
 	}
 
 	@Override

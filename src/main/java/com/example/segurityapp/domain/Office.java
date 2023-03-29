@@ -1,21 +1,11 @@
 package com.example.segurityapp.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -31,27 +21,23 @@ public class Office {
 	@Length(min = 5, max = 100, message = "Name must have 5-100 characters")
 	private String name;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(	name = "rel_entrants_offices",
-				joinColumns = @JoinColumn(name="office_id",referencedColumnName = "id"),
-				inverseJoinColumns = @JoinColumn(name="entrant_id", referencedColumnName = "id"))
-	private List<Entrant> entrants;
-
+	@ManyToMany(
+			fetch = FetchType.LAZY,
+			mappedBy = "offices")
+	@JsonIgnore
+	private Set<Entrant> entrants = new HashSet<>();
+	
 	public Office() {
 	
 	}
 	
-	
-
-	public Office(Integer id,
-			String name,
-			List<Entrant> entrants) {
-		this.id = id;
-		this.name = name;
-		this.entrants = entrants;
+	public Set<Entrant> getEntrants() {
+		return entrants;
 	}
 
-
+	public void setEntrants(Set<Entrant> entrants) {
+		this.entrants = entrants;
+	}
 
 	public Integer getId() {
 		return id;
@@ -67,18 +53,5 @@ public class Office {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Entrant> getEntrants() {
-		return entrants == null ? null : new ArrayList<>(entrants);
-	}
-
-	public void setEntrants(List<Entrant> entrants) {
-		if(entrants == null){
-			this.entrants = null;
-		} else {
-			this.entrants = Collections.unmodifiableList(entrants);
-		}
-		
 	}
 }

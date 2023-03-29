@@ -1,5 +1,7 @@
 package com.example.segurityapp.dto;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 
@@ -18,6 +20,7 @@ public class EntrantDto {
 	private String lastName;
 
 	private EntrantTypeDto entrantType;
+	private List<OfficeDto> offices;
 
 	public EntrantDto() {
 
@@ -61,6 +64,14 @@ public class EntrantDto {
 
 	public void setEntrantType(EntrantTypeDto entrantType) {
 		this.entrantType = entrantType;
+	}
+
+	public List<OfficeDto> getOffices() {
+		return offices;
+	}
+
+	public void setOffices(List<OfficeDto> offices) {
+		this.offices = offices;
 	}
 
 }

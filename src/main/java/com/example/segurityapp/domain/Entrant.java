@@ -1,9 +1,7 @@
 package com.example.segurityapp.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,16 +46,18 @@ public class Entrant {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private EntrantType entrantType;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "rel_entrants_offices",
-				joinColumns = @JoinColumn(name="entrant_id",referencedColumnName = "id"),
-				inverseJoinColumns = @JoinColumn(name="office_id",referencedColumnName = "id"))
-	private List<Office> offices;
+	@ManyToMany(
+			fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "rel_entrants_offices",
+			joinColumns = { @JoinColumn(name = "entrant_id") },
+			inverseJoinColumns = { @JoinColumn(name = "office_id") })
+	private Set<Office> offices = new HashSet<>();
 
 	public Entrant() {
 
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -98,16 +98,24 @@ public class Entrant {
 		this.entrantType = entrantType;
 	}
 
-	public List<Office> getOffices() {
-		return offices == null ? null : new ArrayList<>(offices);
+	public Set<Office> getOffices() {
+		return offices;
 	}
 
-	public void setOffices(List<Office> offices) {
-		if(offices == null){
-			this.offices = null;
-		} else {
-			this.offices = Collections.unmodifiableList(offices);
-		}
-		
+	public void setOffices(Set<Office> offices) {
+		this.offices = offices;
 	}
+
+	public void addOffice(Office office) {
+	    this.offices.add(office);
+	    office.getEntrants().add(this);
+	  }
+	  
+	  public void removeOffice(int officeId) {
+	    Office office = this.offices.stream().filter(t -> t.getId() == officeId).findFirst().orElse(null);
+	    if (office != null) {
+	      this.offices.remove(office);
+	      office.getEntrants().remove(this);
+	    }
+	  }
 }
