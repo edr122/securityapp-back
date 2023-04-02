@@ -29,5 +29,4 @@ public class ApiResponse {
 	public ApiResponse() {
 
 	}
-
 }

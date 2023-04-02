@@ -14,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-
 @Entity
 @Table(name = "entrantTypes")
 public class EntrantType {

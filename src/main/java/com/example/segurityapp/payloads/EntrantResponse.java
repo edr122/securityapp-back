@@ -63,5 +63,4 @@ public class EntrantResponse {
 	public void setLastPage(boolean lastPage) {
 		this.lastPage = lastPage;
 	}
-
 }

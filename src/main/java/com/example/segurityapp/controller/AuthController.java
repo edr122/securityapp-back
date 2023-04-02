@@ -28,7 +28,6 @@ import com.example.segurityapp.repository.RoleRepository;
 import com.example.segurityapp.repository.UserRepository;
 import com.example.segurityapp.security.jwt.JwtUtils;
 import com.example.segurityapp.security.services.UserDetailsImpl;
-
 import io.swagger.v3.oas.annotations.Operation;
 
 @CrossOrigin(origins = "*", maxAge = 3600)

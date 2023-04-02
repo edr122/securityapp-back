@@ -18,12 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.segurityapp.dto.OfficeDto;
 import com.example.segurityapp.service.OfficeService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import com.example.segurityapp.payloads.ApiResponse;
 
 @RestController
 @RequestMapping("/api/securityapp/")
-@SecurityRequirement(name = "Authorization")
 @CrossOrigin
 public class OfficeController {
 
@@ -46,7 +44,6 @@ public class OfficeController {
 		return new ResponseEntity<List<OfficeDto>>(offices, HttpStatus.OK);
 	}
 	
-	
 	@GetMapping("offices/{id}")
 	@Operation(summary = "Get One Office")
 	@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
@@ -54,7 +51,6 @@ public class OfficeController {
 		OfficeDto officeDto = this.officeService.getOfficeById(id);
 		return new ResponseEntity<OfficeDto>(officeDto, HttpStatus.OK);
 	}
-
 
 	@DeleteMapping("offices/{id}")
 	@Operation(summary = "Delete Office")
